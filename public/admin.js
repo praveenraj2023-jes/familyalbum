@@ -1,3 +1,11 @@
+const fallbackCoverImage =
+  "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=80";
+
+const supabase = window.supabase.createClient(
+  window.APP_CONFIG.SUPABASE_URL,
+  window.APP_CONFIG.SUPABASE_ANON_KEY
+);
+
 function showEditorView() {
   document.getElementById("login-panel").classList.add("hidden");
   document.getElementById("editor-panel").classList.remove("hidden");
@@ -9,9 +17,10 @@ function showLoginView() {
 }
 
 async function checkSession() {
-  const response = await fetch("/api/admin/session");
-  const data = await response.json();
-  if (data.isAdmin) {
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  if (session) {
     showEditorView();
   } else {
     showLoginView();
@@ -27,17 +36,12 @@ function setupLogin() {
     status.textContent = "";
 
     const formData = new FormData(form);
-    const username = String(formData.get("username") || "").trim();
+    const email = String(formData.get("email") || "").trim();
     const password = String(formData.get("password") || "");
 
-    const response = await fetch("/api/admin/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (!response.ok) {
-      status.textContent = "Invalid username or password.";
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      status.textContent = "Invalid email or password.";
       return;
     }
 
@@ -59,24 +63,30 @@ function setupAlbumForm() {
     const payload = {
       title: String(formData.get("title") || "").trim(),
       description: String(formData.get("description") || "").trim(),
-      googlePhotosUrl: String(formData.get("googlePhotosUrl") || "").trim(),
-      coverImage: String(formData.get("coverImage") || "").trim(),
+      google_photos_url: String(formData.get("googlePhotosUrl") || "").trim(),
+      cover_image: String(formData.get("coverImage") || "").trim(),
     };
 
-    const response = await fetch("/api/admin/albums", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-
-    if (response.status === 401) {
-      status.textContent = "Session expired. Please login again.";
-      showLoginView();
+    if (!payload.title || !payload.google_photos_url) {
+      status.textContent = "Please provide title and Google Photos link.";
       return;
     }
 
-    if (!response.ok) {
+    if (!isLikelyGooglePhotosLink(payload.google_photos_url)) {
       status.textContent = "Please provide a valid Google Photos album link.";
+      return;
+    }
+
+    payload.description = payload.description || "No description provided.";
+    payload.cover_image = payload.cover_image || fallbackCoverImage;
+
+    const { error } = await supabase.from("albums").insert(payload);
+    if (error) {
+      if (error.message.toLowerCase().includes("row-level security")) {
+        status.textContent = "Not authorized. Check Supabase RLS policies.";
+      } else {
+        status.textContent = "Could not save album. Please try again.";
+      }
       return;
     }
 
@@ -85,9 +95,19 @@ function setupAlbumForm() {
   });
 
   logoutButton.addEventListener("click", async () => {
-    await fetch("/api/admin/logout", { method: "POST" });
+    await supabase.auth.signOut();
     showLoginView();
   });
+}
+
+function isLikelyGooglePhotosLink(url) {
+  try {
+    const parsedUrl = new URL(url);
+    const validHosts = ["photos.google.com", "photos.app.goo.gl"];
+    return validHosts.includes(parsedUrl.hostname.toLowerCase());
+  } catch (error) {
+    return false;
+  }
 }
 
 setupLogin();

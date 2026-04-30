@@ -3,6 +3,10 @@ const fallbackCoverImage =
 
 let allAlbums = [];
 let filteredAlbums = [];
+const supabase = window.supabase.createClient(
+  window.APP_CONFIG.SUPABASE_URL,
+  window.APP_CONFIG.SUPABASE_ANON_KEY
+);
 
 function createAlbumCard(album) {
   const article = document.createElement("article");
@@ -30,7 +34,7 @@ function createAlbumCard(album) {
 
   const openLink = document.createElement("a");
   openLink.className = "album-link album-link-primary";
-  openLink.href = album.googlePhotosUrl;
+  openLink.href = album.google_photos_url;
   openLink.target = "_blank";
   openLink.rel = "noopener noreferrer";
   openLink.textContent = "Open Album";
@@ -44,7 +48,7 @@ function createAlbumCard(album) {
   copyButton.addEventListener("click", async () => {
     const originalText = copyButton.textContent;
     try {
-      await navigator.clipboard.writeText(album.googlePhotosUrl);
+      await navigator.clipboard.writeText(album.google_photos_url);
       copyButton.textContent = "Copied";
     } catch {
       copyButton.textContent = "Copy failed";
@@ -87,9 +91,24 @@ function setupSearch() {
 }
 
 async function loadAlbums() {
-  const response = await fetch("/api/albums");
-  const albums = await response.json();
-  allAlbums = Array.isArray(albums) ? albums : [];
+  const { data, error } = await supabase
+    .from("albums")
+    .select("title, description, google_photos_url, cover_image, created_at")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    allAlbums = [];
+    filteredAlbums = [];
+    renderAlbums();
+    return;
+  }
+
+  allAlbums = Array.isArray(data)
+    ? data.map((album) => ({
+        ...album,
+        coverImage: album.cover_image || fallbackCoverImage,
+      }))
+    : [];
   filteredAlbums = [...allAlbums];
   renderAlbums();
 }
