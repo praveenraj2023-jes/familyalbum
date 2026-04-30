@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Muniswamy Saradhammal Family</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">Digital Memory Wall</p>
+        <h1>Muniswamy Saradhammal Family</h1>
+        <p>View family albums shared through Google Photos.</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="quick-help" aria-label="Quick help">
+        <p><strong>Easy steps:</strong> Search album -> Tap <strong>Open Album</strong> -> View photos.</p>
+      </section>
+
+      <section aria-labelledby="album-heading">
+        <div class="section-title">
+          <h2 id="album-heading">Albums</h2>
+          <div class="section-controls">
+            <input
+              id="album-search"
+              class="search-input"
+              type="search"
+              placeholder="Search albums..."
+              aria-label="Search albums"
+            />
+            <span id="album-count" aria-live="polite"></span>
+          </div>
+        </div>
+        <div id="album-grid" class="album-grid"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>Family access only. Album edits are managed by administrator.</p>
+      </div>
+    </footer>
+    <script src="/viewer.js"></script>
+  </body>
+</html>

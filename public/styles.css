@@ -1,0 +1,398 @@
+:root {
+  --bg: #f3f6ff;
+  --surface: #ffffff;
+  --text: #162235;
+  --muted: #516078;
+  --primary: #4f46e5;
+  --primary-soft: #e0e7ff;
+  --border: #d7def1;
+  --shadow: 0 14px 38px rgba(26, 39, 80, 0.12);
+  --radius-lg: 20px;
+  --radius-md: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  background:
+    radial-gradient(circle at 92% 2%, #ddd6fe 0, #f3f6ff 42%),
+    radial-gradient(circle at 10% 20%, #bfdbfe 0, #f3f6ff 37%),
+    var(--bg);
+  color: var(--text);
+}
+
+.container {
+  width: min(920px, 94%);
+  margin: 0 auto;
+}
+
+.hero {
+  background: linear-gradient(130deg, #3730a3, #4f46e5 55%, #2563eb);
+  color: #f8fbff;
+  padding: 36px 0 42px;
+  border-bottom-left-radius: 24px;
+  border-bottom-right-radius: 24px;
+  box-shadow: 0 12px 26px rgba(55, 48, 163, 0.24);
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #c7d2fe;
+}
+
+.hero h1 {
+  margin: 0 0 10px;
+  font-size: clamp(1.6rem, 5.4vw, 2.4rem);
+}
+
+.hero p {
+  margin: 0;
+  max-width: 680px;
+  color: #dbeafe;
+  line-height: 1.55;
+}
+
+main {
+  padding: 22px 0 44px;
+}
+
+.quick-help {
+  background: #ffffffcc;
+  border: 1px solid #dbe7ff;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  color: #334155;
+  box-shadow: 0 6px 16px rgba(26, 39, 80, 0.08);
+}
+
+.quick-help p {
+  margin: 0;
+  font-size: 0.97rem;
+}
+
+.admin-panel {
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  margin-bottom: 18px;
+  backdrop-filter: blur(6px);
+}
+
+.admin-panel h2 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+input,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+textarea {
+  border: 1px solid #c9d6ea;
+  border-radius: 12px;
+  padding: 12px 13px;
+  color: var(--text);
+  background: #fff;
+}
+
+input:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible,
+.album-link:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 1px;
+}
+
+.form-actions {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-weight: 600;
+  min-height: 48px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  background: #eef2ff;
+  color: #1e3a8a;
+  border-color: #c7d2fe;
+}
+
+.btn-secondary:hover {
+  background: #e0e7ff;
+}
+
+.form-status {
+  margin: 10px 0 0;
+  min-height: 1.2em;
+  color: #14532d;
+  font-size: 0.92rem;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+#album-count {
+  color: var(--muted);
+  font-size: 0.95rem;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 999px;
+  padding: 5px 10px;
+}
+
+.section-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  min-width: 240px;
+  padding: 12px 13px;
+  border-radius: 12px;
+  border: 1px solid #c7d2fe;
+  background: #fff;
+  min-height: 48px;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.album-card {
+  background: linear-gradient(180deg, #ffffff, #f8faff);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.album-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 32px rgba(31, 41, 88, 0.16);
+}
+
+.album-thumb {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  background: var(--primary-soft);
+}
+
+.album-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.album-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.album-description {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+  min-height: 44px;
+}
+
+.album-link {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  border: 1px solid transparent;
+  min-height: 46px;
+}
+
+.album-actions {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.album-link-primary {
+  background: linear-gradient(120deg, #4338ca, #4f46e5);
+  color: #fff;
+}
+
+.album-link-secondary {
+  background: #eff6ff;
+  color: #1e40af;
+  border-color: #bfdbfe;
+}
+
+.album-link-primary:hover {
+  background: #1d4ed8;
+}
+
+.album-link-secondary:hover {
+  background: #dbeafe;
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 16px 0 24px;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+
+  .hero {
+    padding: 28px 0 30px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
+  .eyebrow {
+    font-size: 0.76rem;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  main {
+    padding-top: 16px;
+  }
+
+  .quick-help {
+    margin-bottom: 12px;
+    padding: 10px 12px;
+  }
+
+  .section-title {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+    background: #f3f6ffeb;
+    backdrop-filter: blur(4px);
+    padding: 8px 0 10px;
+    margin-bottom: 10px;
+  }
+
+  .search-input {
+    min-width: 100%;
+  }
+
+  .section-controls {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  #album-count {
+    width: 100%;
+    text-align: center;
+    padding: 9px 10px;
+    border-radius: 12px;
+  }
+
+  .album-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .album-thumb {
+    height: 180px;
+  }
+
+  .album-actions {
+    gap: 10px;
+  }
+
+  .album-link {
+    width: 100%;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

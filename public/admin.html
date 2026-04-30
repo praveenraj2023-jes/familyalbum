@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Family Albums</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">Admin Portal</p>
+        <h1>Manage Family Albums</h1>
+        <p>Only authorized users can add albums.</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="quick-help" aria-label="Quick help">
+        <p><strong>Tip:</strong> Add title and Google Photos link, then tap <strong>Add Album</strong>.</p>
+      </section>
+
+      <section id="login-panel" class="admin-panel" aria-labelledby="login-heading">
+        <h2 id="login-heading">Admin Login</h2>
+        <form id="login-form">
+          <div class="form-grid">
+            <label>
+              Username
+              <input name="username" type="text" required />
+            </label>
+            <label>
+              Password
+              <input name="password" type="password" required />
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Login</button>
+          </div>
+          <p id="login-status" class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section id="editor-panel" class="admin-panel hidden" aria-labelledby="add-album-heading">
+        <h2 id="add-album-heading">Add New Album</h2>
+        <form id="album-form" novalidate>
+          <div class="form-grid">
+            <label>
+              Album Title
+              <input name="title" type="text" required />
+            </label>
+            <label>
+              Google Photos Link
+              <input name="googlePhotosUrl" type="url" required />
+            </label>
+            <label class="full-width">
+              Description
+              <textarea name="description" rows="3"></textarea>
+            </label>
+            <label class="full-width">
+              Cover Image URL (optional)
+              <input name="coverImage" type="url" />
+            </label>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Add Album</button>
+            <button id="logout-btn" type="button" class="btn btn-secondary">Logout</button>
+          </div>
+          <p id="form-status" class="form-status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="/admin.js"></script>
+  </body>
+</html>
