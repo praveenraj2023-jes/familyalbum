@@ -108,6 +108,19 @@ function setupInfoModal() {
   infoButton.addEventListener("click", () => {
     infoModal.showModal();
   });
+
+  infoModal.addEventListener("click", (event) => {
+    const bounds = infoModal.getBoundingClientRect();
+    const insideDialog =
+      event.clientX >= bounds.left &&
+      event.clientX <= bounds.right &&
+      event.clientY >= bounds.top &&
+      event.clientY <= bounds.bottom;
+
+    if (!insideDialog) {
+      infoModal.close();
+    }
+  });
 }
 
 async function loadAlbums() {
