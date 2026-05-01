@@ -6,20 +6,31 @@
     <title>Muniswamy Saradhammal Family</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
-  <body>
+  <body class="viewer-page">
     <header class="hero">
+      <button id="info-btn" class="info-fab" type="button" aria-label="Open website info">
+        i
+      </button>
       <div class="container">
-        <p class="eyebrow">Digital Memory Wall</p>
-        <h1>Muniswamy Saradhammal Family</h1>
-        <p>View family albums shared through Google Photos.</p>
+        <div class="profile-card">
+          <div class="profile-banner"></div>
+          <div class="profile-row">
+            <img
+              class="profile-avatar"
+              src="https://images.unsplash.com/photo-1511895426328-dc8714191300?auto=format&fit=crop&w=300&q=80"
+              alt="Family profile"
+            />
+            <div class="profile-text">
+              <p class="eyebrow">MS Family Memories</p>
+              <h1>Muniswamy Saradhammal Family</h1>
+              <p class="hero-subtitle">Tap any memory card below to open the full album.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
     <main class="container">
-      <section class="quick-help" aria-label="Quick help">
-        <p><strong>Easy steps:</strong> Search album -> Tap <strong>Open Album</strong> -> View photos.</p>
-      </section>
-
       <section aria-labelledby="album-heading">
         <div class="section-title">
           <h2 id="album-heading">Albums</h2>
@@ -43,6 +54,16 @@
         <p>Family access only. Album edits are managed by administrator.</p>
       </div>
     </footer>
+
+    <dialog id="info-modal" class="info-modal">
+      <h3>About This Page</h3>
+      <p>This is a private family memory collection.</p>
+      <p>Use search to find an album and tap a card to open it in Google Photos.</p>
+      <form method="dialog">
+        <button type="submit" class="btn btn-primary">Close</button>
+      </form>
+    </dialog>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="/config.js"></script>
     <script src="/viewer.js"></script>

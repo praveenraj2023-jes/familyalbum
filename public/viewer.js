@@ -61,6 +61,14 @@ function createAlbumCard(album) {
   actions.append(openLink, copyButton);
   body.append(title, description, actions);
   article.append(img, body);
+
+  article.addEventListener("click", (event) => {
+    if (event.target.closest(".album-link-secondary")) {
+      return;
+    }
+    window.open(album.google_photos_url, "_blank", "noopener,noreferrer");
+  });
+
   return article;
 }
 
@@ -90,6 +98,18 @@ function setupSearch() {
   });
 }
 
+function setupInfoModal() {
+  const infoButton = document.getElementById("info-btn");
+  const infoModal = document.getElementById("info-modal");
+  if (!infoButton || !infoModal) {
+    return;
+  }
+
+  infoButton.addEventListener("click", () => {
+    infoModal.showModal();
+  });
+}
+
 async function loadAlbums() {
   const { data, error } = await supabase
     .from("albums")
@@ -114,4 +134,5 @@ async function loadAlbums() {
 }
 
 setupSearch();
+setupInfoModal();
 loadAlbums();

@@ -312,6 +312,169 @@ textarea:focus-visible,
   display: none;
 }
 
+.viewer-page {
+  background: linear-gradient(180deg, #fee48a 0%, #ffc8e5 100%);
+}
+
+.viewer-page .hero {
+  background: transparent;
+  box-shadow: none;
+  padding: 22px 0 8px;
+}
+
+.info-fab {
+  position: fixed;
+  top: 18px;
+  right: 16px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffffee;
+  color: #1f2937;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 30;
+}
+
+.profile-card {
+  border-radius: 26px;
+  overflow: hidden;
+  background: #fff6;
+  backdrop-filter: blur(3px);
+}
+
+.profile-banner {
+  height: 120px;
+  background-image: url("https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.profile-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 14px 14px;
+  margin-top: -34px;
+}
+
+.profile-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  object-fit: cover;
+}
+
+.profile-text h1 {
+  font-size: 1.45rem;
+  margin: 2px 0 4px;
+  color: #0f172a;
+}
+
+.viewer-page .eyebrow {
+  color: #334155;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-size: 0.9rem;
+}
+
+.hero-subtitle {
+  margin: 0;
+  color: #334155;
+  font-size: 0.92rem;
+}
+
+.viewer-page main {
+  padding-top: 10px;
+}
+
+.viewer-page .section-title h2 {
+  font-size: 1.1rem;
+}
+
+.viewer-page .search-input {
+  border-radius: 999px;
+  border-width: 2px;
+}
+
+.viewer-page .album-grid {
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.viewer-page .album-card {
+  border-radius: 999px;
+  border: 3px solid #1f2a44;
+  box-shadow: none;
+  background: #ffffff;
+}
+
+.viewer-page .album-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.viewer-page .album-body {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px 8px 8px;
+}
+
+.viewer-page .album-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.viewer-page .album-description {
+  display: none;
+}
+
+.viewer-page .album-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.08rem;
+  margin: 0;
+  color: #0f172a;
+}
+
+.viewer-page .album-actions {
+  margin: 0;
+  gap: 6px;
+}
+
+.viewer-page .album-link {
+  min-height: 36px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.viewer-page .album-link-primary {
+  background: #111827;
+}
+
+.viewer-page .footer {
+  border-top: none;
+}
+
+.info-modal {
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  width: min(92vw, 340px);
+}
+
+.info-modal::backdrop {
+  background: rgba(15, 23, 42, 0.45);
+}
+
 @media (max-width: 640px) {
   body {
     font-size: 16px;
@@ -394,5 +557,17 @@ textarea:focus-visible,
 
   .btn {
     width: 100%;
+  }
+
+  .viewer-page .profile-row {
+    align-items: flex-end;
+  }
+
+  .viewer-page .profile-text h1 {
+    font-size: 1.2rem;
+  }
+
+  .viewer-page .album-link-secondary {
+    display: none;
   }
 }
