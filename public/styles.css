@@ -1,8 +1,8 @@
 :root {
   --bg: #f3f6ff;
   --surface: #ffffff;
-  --text: #162235;
-  --muted: #516078;
+  --text: #000000;
+  --muted: #000000;
   --primary: #4f46e5;
   --primary-soft: #e0e7ff;
   --border: #d7def1;
@@ -363,8 +363,8 @@ textarea:focus-visible,
 }
 
 .profile-avatar {
-  width: 118px;
-  height: 118px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   border: 4px solid #fff;
   object-fit: cover;
@@ -524,6 +524,23 @@ textarea:focus-visible,
   background: #1fb75a;
 }
 
+.info-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-section {
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.contact-section p {
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
 @media (max-width: 640px) {
   body {
     font-size: 16px;
@@ -617,8 +634,8 @@ textarea:focus-visible,
   }
 
   .viewer-page .profile-avatar {
-    width: 104px;
-    height: 104px;
+    width: 140px;
+    height: 140px;
   }
 
   .viewer-page .album-link-secondary {

@@ -129,9 +129,16 @@ async function loadAlbums() {
     .select("title, description, google_photos_url, cover_image, created_at")
     .order("created_at", { ascending: false });
 
+  const customAlbum = {
+    title: "A Family Feast Like No Other",
+    description: "Enjoy our memorable family feast moments.",
+    google_photos_url: "https://photos.app.goo.gl/irSUqdXhfr8bHaaw6",
+    coverImage: fallbackCoverImage
+  };
+
   if (error) {
-    allAlbums = [];
-    filteredAlbums = [];
+    allAlbums = [customAlbum];
+    filteredAlbums = [...allAlbums];
     renderAlbums();
     return;
   }
@@ -142,6 +149,8 @@ async function loadAlbums() {
         coverImage: album.cover_image || fallbackCoverImage,
       }))
     : [];
+
+  allAlbums.unshift(customAlbum);
   filteredAlbums = [...allAlbums];
   renderAlbums();
 }
