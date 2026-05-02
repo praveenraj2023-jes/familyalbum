@@ -136,37 +136,33 @@ async function loadAlbums() {
     coverImage: fallbackCoverImage
   };
 
-  try {
-    if (!supabase) {
-      throw new Error("Supabase client is not initialized.");
-    }
+  // Render immediately to prevent any blank screen issues
+  allAlbums = [customAlbum];
+  filteredAlbums = [...allAlbums];
+  renderAlbums();
 
+  // If Supabase isn't initialized or still has dummy config, skip fetching
+  if (!supabase) return;
+  if (window.APP_CONFIG && window.APP_CONFIG.SUPABASE_URL.includes("YOUR-PROJECT-ID")) return;
+
+  try {
     const { data, error } = await supabase
       .from("albums")
       .select("title, description, google_photos_url, cover_image, created_at")
       .order("created_at", { ascending: false });
 
-    if (error) {
-      allAlbums = [customAlbum];
+    if (!error && Array.isArray(data)) {
+      allAlbums = data.map((album) => ({
+        ...album,
+        coverImage: album.cover_image || fallbackCoverImage,
+      }));
+      allAlbums.unshift(customAlbum);
       filteredAlbums = [...allAlbums];
       renderAlbums();
-      return;
     }
-
-    allAlbums = Array.isArray(data)
-      ? data.map((album) => ({
-          ...album,
-          coverImage: album.cover_image || fallbackCoverImage,
-        }))
-      : [];
   } catch (err) {
-    // If Supabase is unconfigured, it throws an exception here
-    allAlbums = [];
+    console.warn("Supabase fetch error:", err);
   }
-
-  allAlbums.unshift(customAlbum);
-  filteredAlbums = [...allAlbums];
-  renderAlbums();
 }
 
 setupSearch();
