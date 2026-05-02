@@ -124,11 +124,6 @@ function setupInfoModal() {
 }
 
 async function loadAlbums() {
-  const { data, error } = await supabase
-    .from("albums")
-    .select("title, description, google_photos_url, cover_image, created_at")
-    .order("created_at", { ascending: false });
-
   const customAlbum = {
     title: "A Family Feast Like No Other",
     description: "Enjoy our memorable family feast moments.",
@@ -136,19 +131,29 @@ async function loadAlbums() {
     coverImage: fallbackCoverImage
   };
 
-  if (error) {
-    allAlbums = [customAlbum];
-    filteredAlbums = [...allAlbums];
-    renderAlbums();
-    return;
-  }
+  try {
+    const { data, error } = await supabase
+      .from("albums")
+      .select("title, description, google_photos_url, cover_image, created_at")
+      .order("created_at", { ascending: false });
 
-  allAlbums = Array.isArray(data)
-    ? data.map((album) => ({
-        ...album,
-        coverImage: album.cover_image || fallbackCoverImage,
-      }))
-    : [];
+    if (error) {
+      allAlbums = [customAlbum];
+      filteredAlbums = [...allAlbums];
+      renderAlbums();
+      return;
+    }
+
+    allAlbums = Array.isArray(data)
+      ? data.map((album) => ({
+          ...album,
+          coverImage: album.cover_image || fallbackCoverImage,
+        }))
+      : [];
+  } catch (err) {
+    // If Supabase is unconfigured, it throws an exception here
+    allAlbums = [];
+  }
 
   allAlbums.unshift(customAlbum);
   filteredAlbums = [...allAlbums];
