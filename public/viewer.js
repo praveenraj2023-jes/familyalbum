@@ -3,10 +3,15 @@ const fallbackCoverImage =
 
 let allAlbums = [];
 let filteredAlbums = [];
-const supabase = window.supabase.createClient(
-  window.APP_CONFIG.SUPABASE_URL,
-  window.APP_CONFIG.SUPABASE_ANON_KEY
-);
+let supabase = null;
+try {
+  supabase = window.supabase.createClient(
+    window.APP_CONFIG.SUPABASE_URL,
+    window.APP_CONFIG.SUPABASE_ANON_KEY
+  );
+} catch (err) {
+  console.warn("Supabase failed to initialize. Using offline/hardcoded mode.");
+}
 
 function createAlbumCard(album) {
   const article = document.createElement("article");
@@ -132,6 +137,10 @@ async function loadAlbums() {
   };
 
   try {
+    if (!supabase) {
+      throw new Error("Supabase client is not initialized.");
+    }
+
     const { data, error } = await supabase
       .from("albums")
       .select("title, description, google_photos_url, cover_image, created_at")

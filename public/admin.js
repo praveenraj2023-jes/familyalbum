@@ -1,10 +1,15 @@
 const fallbackCoverImage =
   "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1200&q=80";
 
-const supabase = window.supabase.createClient(
-  window.APP_CONFIG.SUPABASE_URL,
-  window.APP_CONFIG.SUPABASE_ANON_KEY
-);
+let supabase = null;
+try {
+  supabase = window.supabase.createClient(
+    window.APP_CONFIG.SUPABASE_URL,
+    window.APP_CONFIG.SUPABASE_ANON_KEY
+  );
+} catch (err) {
+  console.warn("Supabase failed to initialize. Check config.js.");
+}
 
 function showEditorView() {
   document.getElementById("login-panel").classList.add("hidden");
